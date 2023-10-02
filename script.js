@@ -3,7 +3,7 @@ let $All = (param) => document.querySelectorAll(param);
 const specialChars = ['%', '-', '+', '*', '/', '=', '+/-'];
 let output = $("#answer").textContent;
 let result = $("#result").textContent;
-let isClick = false;
+
 
 // $("#answer").addEventListener('click',()=>{
 //     console.log('jhsdbcjhbdbcbcd');
@@ -23,28 +23,28 @@ let calculate = (value) => {
         }
     } else if (value === '<=') {
         output = output.toString().slice(0, - 1);
+
     }else if (specialChars.includes(value) && output !== '' && output !== '0') {
-        if (!isClick) {
-            output += value;
-            isClick = true;
-        } else {
-            return
+        let endValue = output[output.length-1];
+        if(specialChars.includes(endValue)) {
+            output = output.slice(0, -1) + value
+           console.log( output = output.slice(0, -1) + value)
+        }
+        else{
+            output+=value
         }
     }else {
         if (((output === '' || output === '0') && specialChars.includes(value))) {
             // console.log(specialChars.includes(value))
             return
         }
-        if ((!specialChars.includes(value))) {
-            isClick = false
-        }
+
         if (output === '0') {
             output = '';
             result=''
         }
         output += value;
         result = ''
-        // isClick=true;
     }
 }
 
